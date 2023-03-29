@@ -6,8 +6,12 @@ import javafx.scene.control.RadioButton;
 
 public class main_pageController {
 
+    static String[] Letters = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" }; // Array of String
+    static String[] Classes = { "Economy", "Premimum economy", "Business", "First Class" }; // Array of String
+    static String[] Persons = { "1", "2", "3", "4" }; // Array of String
+
     @FXML
-    private ChoiceBox<?> classes;
+    private ChoiceBox classes;
 
     @FXML
     private DatePicker depart_date;
@@ -19,7 +23,7 @@ public class main_pageController {
     private RadioButton one_way;
 
     @FXML
-    private ChoiceBox<?> persons;
+    private ChoiceBox persons;
 
     @FXML
     private DatePicker return_date;
@@ -36,10 +40,7 @@ public class main_pageController {
     @FXML
     private ChoiceBox where_to;
 
-    static String[] Letters = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" }; // Array of String
-
     private void directions() {
-
         where_from.setItems(new javafx.collections.ObservableListBase<String>() {
             @Override
             public String get(int index) {
@@ -65,6 +66,34 @@ public class main_pageController {
         });
     }
 
+    void persons() {
+        persons.setItems(new javafx.collections.ObservableListBase<String>() {
+            @Override
+            public String get(int index) {
+                return Classes[index];
+            }
+
+            @Override
+            public int size() {
+                return Classes.length;
+            }
+        });
+    }
+
+    void classes() {
+        classes.setItems(new javafx.collections.ObservableListBase<String>() {
+            @Override
+            public String get(int index) {
+                return Persons[index];
+            }
+
+            @Override
+            public int size() {
+                return Persons.length;
+            }
+        });
+    }
+
     void depart_date() {
         depart_date.setOnAction(e -> {
             System.out.println(depart_date.getValue());
@@ -81,13 +110,16 @@ public class main_pageController {
     private void initialize() {
         System.out.println("initialized");
 
+        // Testing
         depart_date();
         return_date();
-
+        persons();
+        classes();
         directions();
 
         search_btn.setOnAction(e -> {
             System.out.println(where_from.getValue());
         });
+        // Testing
     }
 }
