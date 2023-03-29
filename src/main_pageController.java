@@ -31,49 +31,63 @@ public class main_pageController {
     private Button search_btn;
 
     @FXML
-    private ChoiceBox<?> where_from;
+    private ChoiceBox where_from;
 
     @FXML
-    private ChoiceBox<?> where_to;
+    private ChoiceBox where_to;
+
+    static String[] Letters = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" }; // Array of String
+
+    private void directions() {
+
+        where_from.setItems(new javafx.collections.ObservableListBase<String>() {
+            @Override
+            public String get(int index) {
+                return Letters[index];
+            }
+
+            @Override
+            public int size() {
+                return Letters.length;
+            }
+        });
+
+        where_to.setItems(new javafx.collections.ObservableListBase<String>() {
+            @Override
+            public String get(int index) {
+                return Letters[index];
+            }
+
+            @Override
+            public int size() {
+                return Letters.length;
+            }
+        });
+    }
+
+    void depart_date() {
+        depart_date.setOnAction(e -> {
+            System.out.println(depart_date.getValue());
+        });
+    }
+
+    void return_date() {
+        return_date.setOnAction(e -> {
+            System.out.println(return_date.getValue());
+        });
+    }
 
     @FXML
     private void initialize() {
         System.out.println("initialized");
 
+        depart_date();
+        return_date();
+
+        directions();
+
         search_btn.setOnAction(e -> {
-            System.out.println("search button clicked");
+            System.out.println(where_from.getValue());
         });
-
-        where_from.getItems().removeAll(where_from.getItems());
-
-        where_from.getItems().addAll("New York", "Chicago", "Los Angeles", "SanFrancisco", "Seattle", "Boston",
-                "Washington DC", "Miami", "Atlanta", "Dallas", "Houston", "Phoenix",
-                "Denver", "Las Vegas",
-                "Minneapolis", "Detroit", "San Diego", "St. Louis", "Tampa", "Baltimore",
-                "Charlotte", "Portland",
-                "Orlando", "Sacramento", "Pittsburgh", "Cleveland", "Cincinnati",
-                "Indianapolis", "Kansas City",
-                "Nashville", "Raleigh", "Milwaukee", "New Orleans", "Oklahoma City",
-                "Buffalo", "Tucson", "Fresno",
-                "Columbus", "Virginia Beach", "Jacksonville", "San Jose", "Austin", "San Antonio", "Riverside",
-                "Richmond", "Louisville", "Providence", "Salt Lake City", "Hartford",
-                "Newark", "Greensboro", "Omaha",
-                "Wichita", "Birmingham", "Memphis", "Tulsa", "Winston-Salem", "Harrisburg",
-                "Grand Rapids", "Mobile",
-                "Little Rock", "Albuquerque", "Tampa", "Baltimore", "Charlotte", "Portland",
-                "Orlando", "Sacramento",
-                "Pittsburgh", "Cleveland", "Cincinnati", "Indianapolis", "Kansas City",
-                "Nashville", "Raleigh",
-                "Milwaukee", "New Orleans", "Oklahoma City", "Buffalo", "Tucson", "Fresno",
-                "Columbus",
-                "Virginia Beach", "Jacksonville", "San Jose", "Austin", "San Antonio",
-                "Riverside", "Richmond",
-                "Louisville", "Providence", "Salt Lake City", "Hartford", "Newark",
-                "Greensboro", "Omaha", "Wichita",
-                "Birmingham", "Memphis", "Tulsa", "Winston-Salem", "Harrisburg", "Grand Rapids", "Mobile",
-                "Little Rock", "Albuquerque");
-
-        where_from.getSelectionModel().select("New York");
-
     }
 }
