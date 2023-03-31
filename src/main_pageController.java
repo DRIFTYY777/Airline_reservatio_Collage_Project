@@ -2,6 +2,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,18 +78,6 @@ public class Main_PageController {
 
     @FXML
     private ChoiceBox where_to;
-
-    void depart_date() {
-        depart_date.setOnAction(e -> {
-            System.out.println(depart_date.getValue());
-        });
-    }
-
-    void return_date() {
-        return_date.setOnAction(e -> {
-            System.out.println(return_date.getValue());
-        });
-    }
 
     void directions() {
         // parse data.json file
@@ -173,25 +162,37 @@ public class Main_PageController {
         persons.setValue(Persons.get(0));
     }
 
+    void depart_date() {
+        depart_date.setOnAction(e -> {
+            System.out.println(depart_date.getValue());
+        });
+    }
+
+    void return_date() {
+        return_date.setOnAction(e -> {
+            System.out.println(return_date.getValue());
+        });
+    }
+
     @FXML
     private void initialize() {
         System.out.println("initialized");
 
         depart_date();
         return_date();
-        comfort();
-        directions();
-        person_count();
+
+        comfort(); // init
+        directions(); // init
+        person_count(); // init
 
         search_btn.setOnAction(e -> {
-            System.out.println(where_from.getValue());
-            System.out.println(Classes.get(classes.getSelectionModel().getSelectedIndex()));
-            System.out.println(Persons.get(persons.getSelectionModel().getSelectedIndex()));
+
         });
 
-        ToggleGroup group = new ToggleGroup();
-        one_way.setToggleGroup(group);
-        round_trip.setToggleGroup(group);
+        ToggleGroup group = new ToggleGroup(); // init
+        one_way.setToggleGroup(group); // init
+        round_trip.setToggleGroup(group); // init
+
         group.getToggles().forEach(toggle -> {
             toggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue) {
@@ -223,5 +224,51 @@ public class Main_PageController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private void ticket_details() {
+
+        System.out.println(where_from.getValue()); // place from flight takeoff
+        System.out.println(where_to.getValue()); // place of flight landing
+
+        System.out.println(Classes.get(classes.getSelectionModel().getSelectedIndex())); // which class selected
+        System.out.println(Persons.get(persons.getSelectionModel().getSelectedIndex())); // how many person
+
+        System.out.println(depart_date.getValue()); // date of flight takeoff
+        System.out.println(return_date.getValue()); // date of flight landing
+
+        if (one_way.isSelected()) {
+            System.out.println("one way");
+        } else if (round_trip.isSelected()) {
+            System.out.println("round trip");
+        }
+
+        direct_flight.setOnAction(e -> {
+            System.out.println(direct_flight.isSelected());
+        });
+    }
+
+    private boolean search_flight() {
+
+        String takeoff_place = where_from.getValue().toString(); // place from flight takeoff
+        String landing_place = where_to.getValue().toString(); // place of flight landing
+        String class_selected = Classes.get(classes.getSelectionModel().getSelectedIndex()); // which class selected
+        String person_count = Persons.get(persons.getSelectionModel().getSelectedIndex()); // how many person
+
+        String takeoff_date = depart_date.getValue().toString(); // date of flight takeoff
+        String landing_date = return_date.getValue().toString(); // date of flight landing
+
+        if (one_way.isSelected()) {
+            System.out.println("one way");
+        } else if (round_trip.isSelected()) {
+            System.out.println("round trip");
+        }
+
+        direct_flight.setOnAction(e -> {
+            System.out.println(direct_flight.isSelected());
+        });
+
+        return false;
+
     }
 }

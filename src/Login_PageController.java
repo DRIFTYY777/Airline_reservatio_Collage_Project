@@ -1,5 +1,6 @@
 
-import java.io.Console;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,16 +26,8 @@ public class Login_PageController {
     private void initialize() {
         System.out.println("LogIn Initilized");
 
-        common.User = true;
-
         signin_btn.setOnAction(e -> {
             login();
-
-            if (common.User) {
-                common.switchScene(signin_btn, "main_page.fxml");
-            } else {
-                System.out.println("Login First");
-            }
         });
 
         register_account_btn.setOnAction(e -> {
@@ -45,7 +38,28 @@ public class Login_PageController {
     private void login() {
         String email_string = email.getText().toString().toLowerCase();
         String passw_string = password.getText().toString();
-        System.out.println(email_string + "   " + passw_string);
+
+        String dec_pass = Crypto.crypto.encrypt(passw_string);
+        JSONArray data = (JSONArray) common.readJSON("users/output.json");
+
+        for (Object object : data) {
+            JSONObject user = (JSONObject) object;
+            String email = (String) user.get("Email");
+            String pass = (String) user.get("Password");
+
+            if (email_string.equals(email) && dec_pass.equals(pass)) {
+                System.out.println("Login Success");
+                common.User = true;
+                common.User_data = user;
+                common.switchScene(signin_btn, "main_page.fxml");
+                break;
+            } else {
+                common.User = false;
+            }
+        }
+        if (common.User == false) {
+            System.out.println("Login Failed");
+        }
     }
 
 }

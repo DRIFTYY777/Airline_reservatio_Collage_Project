@@ -1,6 +1,5 @@
-import java.io.FileWriter;
-import java.io.IOException;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import javafx.fxml.FXML;
@@ -27,6 +26,7 @@ public class register_acc_pageController {
 
     @FXML
     private void initialize() {
+
         already_have_acc.setOnAction(v -> {
             common.switchScene(email, "Login/login.fxml");
         });
@@ -50,26 +50,21 @@ public class register_acc_pageController {
         } else if (pass_string.length() != pass_string1.length()) {
             System.out.println("Enter Correct Password");
         } else {
-            System.out.println("AccRegistered");
+            System.out.println("Acccount Registered");
             save_data_local(email_string, pass_string);
         }
     }
 
     private void save_data_local(String email, String password) {
-        // Creating a JSONObject object
-        JSONObject jsonObject = new JSONObject();
-        // Inserting key-value pairs into the json object
-        jsonObject.put("Email", email);
-        jsonObject.put("Password", password);
 
-        try {
-            FileWriter file = new FileWriter("users/output.json");
-            file.write(jsonObject.toJSONString());
-            file.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        String enc_pass = Crypto.crypto.encrypt(password);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Email", email);
+        jsonObject.put("Password", enc_pass);
+        JSONArray temp_save = (JSONArray) common.readJSON("users/output.json");
+        temp_save.add(jsonObject);
+        common.writeJSON("users/output.json", temp_save.toJSONString());
         System.out.println("JSON file created: " + jsonObject);
     }
+
 }
