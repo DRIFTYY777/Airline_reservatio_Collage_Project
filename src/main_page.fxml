@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main_pageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main_PageController">
    <children>
       <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Compare and book flights with ease">
          <font>
@@ -31,5 +31,6 @@
          </font>
       </Text>
       <ToggleButton fx:id="direct_flight" layoutX="231.0" layoutY="206.0" mnemonicParsing="false" text="Direct Flight" />
+      <Button fx:id="test" layoutX="71.0" layoutY="322.0" mnemonicParsing="false" text="test" />
    </children>
 </AnchorPane>

@@ -23,7 +23,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-public class main_pageController {
+public class Main_PageController {
 
     ArrayList<String> Classes = new ArrayList<String>(
             new HashMap<String, String>() {
@@ -208,9 +208,9 @@ public class main_pageController {
             System.out.println(direct_flight.isSelected());
         });
 
-        // test.setOnAction(e -> {
-        // switchScene();
-        // });
+        test.setOnAction(e -> {
+            switchScene();
+        });
     }
 
     public void switchScene() {
