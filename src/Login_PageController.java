@@ -6,8 +6,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * This class is used to control the login page
+ * 
+ * @author Karan Saroha
+ */
 public class Login_PageController {
 
+    /**
+     * Calling the common class for the user login status and methods
+     */
     Common common = new Common();
 
     @FXML
@@ -22,6 +30,9 @@ public class Login_PageController {
     @FXML
     private Button signin_btn;
 
+    /**
+     * This method is used to initialize the login page
+     */
     @FXML
     private void initialize() {
         System.out.println("LogIn Initilized");
@@ -35,7 +46,13 @@ public class Login_PageController {
         });
     }
 
+    /**
+     * This method is used to login the user
+     * Taking the email and password from the user and comparing it with the data in
+     * the json file and if the data matches then the user will be logged in
+     */
     private void login() {
+
         String email_string = email.getText().toString().toLowerCase();
         String passw_string = password.getText().toString();
 
@@ -46,7 +63,6 @@ public class Login_PageController {
             JSONObject user = (JSONObject) object;
             String email = (String) user.get("Email");
             String pass = (String) user.get("Password");
-
             if (email_string.equals(email) && dec_pass.equals(pass)) {
                 System.out.println("Login Success");
                 common.User = true;
@@ -58,8 +74,8 @@ public class Login_PageController {
             }
         }
         if (common.User == false) {
+            common.show_message(email, "Error", "Failed to LogIn", "Try again!");
             System.out.println("Login Failed");
         }
     }
-
 }

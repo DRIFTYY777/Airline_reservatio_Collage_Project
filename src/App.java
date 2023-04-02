@@ -5,13 +5,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * This class is used to start the application
+ * 
+ * @author Karan Saroha
+ */
 public class App extends Application {
-    // public boolean User = false;
+
+    /**
+     * Calling the common class for the user login status and methods
+     */
     Common common = new Common();
 
+    /**
+     * This method is used to start the application,
+     * 
+     * At start, the application will check the user login status then take decision
+     * to load the login page or the main page of the application
+     * 
+     * @param primaryStage - The primary stage of the application
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        /**
+         * The root variable is used to store the page to be loaded
+         */
         Parent root = null;
         primaryStage.setTitle("Driftyy Airline's");
 
@@ -25,11 +43,17 @@ public class App extends Application {
         primaryStage.show();
     }
 
+    /**
+     * This method is used to start the application
+     * 
+     * @param args - The arguments passed to the application
+     */
     public static void main(String[] args) throws Exception {
-
+        /**
+         * Calling the crypto class for the encryption and decryption of the data
+         */
         Crypto crypto = new Crypto();
         Crypto.crypto = crypto;
-
         launch(args);
     }
 }

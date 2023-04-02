@@ -14,11 +14,34 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
 
+/**
+ * This class is used to store the common methods and variables for
+ * the application
+ * 
+ * @author karan saroha
+ * @version 1.0.0
+ * @since 2023-03-31
+ * 
+ */
 public final class Common {
 
+    /**
+     * Variable for the user login status
+     */
     public boolean User = false;
+
+    /**
+     * Variable for the user data in the form of JSON object (About ticket, flight
+     * details, etc.)
+     */
     public JSONObject User_data = null;
 
+    /**
+     * This method is used to switch the scene (Change the window/page)
+     * 
+     * @param node - The node of the current window
+     * @param page - The page to be loaded
+     */
     public void switchScene(Node node, String page) {
         try {
             Stage stage = (Stage) node.getScene().getWindow();
@@ -31,6 +54,12 @@ public final class Common {
         }
     }
 
+    /**
+     * Function is used for writing the JSON file
+     * 
+     * @param file_name - The name of the file
+     * @param data      in a form of object
+     */
     public void writeJSON(String file_name, String object) {
         try {
             FileWriter file = new FileWriter(file_name);
@@ -42,6 +71,12 @@ public final class Common {
         System.out.println("JSON file created: " + object);
     }
 
+    /**
+     * Function is used for reading the JSON file
+     * 
+     * @param file_name - The name of the file
+     * @return data in the form of object
+     */
     public Object readJSON(String file_name) {
         JSONParser parser = new JSONParser();
         Object object = null;
@@ -53,17 +88,21 @@ public final class Common {
         return object;
     }
 
-    public void show_message(Node node, String title, String message) {
-        ButtonType loginButtonType = new ButtonType("Login", ButtonData.OK_DONE);
+    /**
+     * Function is used for showing the message
+     * 
+     * @param node    - The node of the current window
+     * 
+     * @param title   - The title of the message
+     * @param message - The message to be shown
+     * @param button  - The button message
+     */
+    public void show_message(Node node, String title, String message, String button_msg) {
+        ButtonType loginButtonType = new ButtonType(button_msg, ButtonData.OK_DONE);
         Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        dialog.setHeaderText(message);
         dialog.getDialogPane().getButtonTypes().add(loginButtonType);
-        boolean disabled = false; // computed based on content of text fields, for example
-        dialog.getDialogPane().lookupButton(loginButtonType).setDisable(disabled);
-
-        dialog.showAndWait().ifPresent(response -> {
-            if (loginButtonType.getButtonData() == ButtonData.OK_DONE) {
-                System.out.println("Login button pressed");
-            }
-        });
+        dialog.showAndWait();
     }
 }

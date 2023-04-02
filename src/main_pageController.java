@@ -2,7 +2,6 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,19 +12,28 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 
+/**
+ * This class is used to control the main page of the application
+ * and to handle the events of the main page
+ * 
+ * @author karan saroha
+ * @version 1.0.0
+ * @since 2023-03-31
+ * 
+ */
 public class Main_PageController {
 
+    /**
+     * Array list for the classes
+     */
     ArrayList<String> Classes = new ArrayList<String>(
             new HashMap<String, String>() {
                 {
@@ -34,8 +42,11 @@ public class Main_PageController {
                     put("Business", "Business");
                     put("First Class", "First Class");
                 }
-            }.keySet()); // Create an ArrayList object
+            }.keySet());
 
+    /**
+     * Array list for the Persons count
+     */
     ArrayList<String> Persons = new ArrayList<String>(
             new HashMap<String, String>() {
                 {
@@ -46,6 +57,9 @@ public class Main_PageController {
                 }
             }.keySet());
 
+    /**
+     * Variable for the initial gui
+     */
     @FXML
     private ChoiceBox classes;
 
@@ -79,6 +93,9 @@ public class Main_PageController {
     @FXML
     private ChoiceBox where_to;
 
+    /**
+     * This method is used to initialize Where from and Where to choice boxes
+     */
     void directions() {
         // parse data.json file
         // get data from data.json file
@@ -87,7 +104,7 @@ public class Main_PageController {
         Object obj = null;
 
         try {
-            obj = new JSONParser().parse(new FileReader("airpots/data.json"));
+            obj = new JSONParser().parse(new FileReader("airports/data.json"));
         } catch (FileNotFoundException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -132,6 +149,9 @@ public class Main_PageController {
         });
     }
 
+    /**
+     * This method is used to initialize the classes choice box
+     */
     void comfort() {
         classes.setItems(new javafx.collections.ObservableListBase<String>() {
             @Override
@@ -147,6 +167,9 @@ public class Main_PageController {
         classes.setValue(Classes.get(0));
     }
 
+    /**
+     * This method is used to initialize the persons choice box
+     */
     void person_count() {
         persons.setItems(new javafx.collections.ObservableListBase<String>() {
             @Override
@@ -174,6 +197,10 @@ public class Main_PageController {
         });
     }
 
+    /**
+     * This method is used to initialize the main page
+     * and to handle the events of the main page
+     */
     @FXML
     private void initialize() {
         System.out.println("initialized");
@@ -210,48 +237,24 @@ public class Main_PageController {
         });
 
         test.setOnAction(e -> {
-            switchScene();
+            Common common = new Common();
+            // common.User = false;
+            // common.switchScene(classes, "Login/login.fxml");
+
+            common.show_message(classes, "test", "test", "ok");
         });
     }
 
-    public void switchScene() {
-        try {
-            Stage stage = (Stage) test.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("Login/login.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void ticket_details() {
-
-        System.out.println(where_from.getValue()); // place from flight takeoff
-        System.out.println(where_to.getValue()); // place of flight landing
-
-        System.out.println(Classes.get(classes.getSelectionModel().getSelectedIndex())); // which class selected
-        System.out.println(Persons.get(persons.getSelectionModel().getSelectedIndex())); // how many person
-
-        System.out.println(depart_date.getValue()); // date of flight takeoff
-        System.out.println(return_date.getValue()); // date of flight landing
-
-        if (one_way.isSelected()) {
-            System.out.println("one way");
-        } else if (round_trip.isSelected()) {
-            System.out.println("round trip");
-        }
-
-        direct_flight.setOnAction(e -> {
-            System.out.println(direct_flight.isSelected());
-        });
-    }
-
+    /**
+     * This method is used to search for a flight
+     * 
+     * @return flights list
+     */
     private boolean search_flight() {
 
         String takeoff_place = where_from.getValue().toString(); // place from flight takeoff
         String landing_place = where_to.getValue().toString(); // place of flight landing
+
         String class_selected = Classes.get(classes.getSelectionModel().getSelectedIndex()); // which class selected
         String person_count = Persons.get(persons.getSelectionModel().getSelectedIndex()); // how many person
 
