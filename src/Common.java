@@ -105,4 +105,29 @@ public final class Common {
         dialog.getDialogPane().getButtonTypes().add(loginButtonType);
         dialog.showAndWait();
     }
+
+    /**
+     * @param from_lat  - The latitude of the source
+     * @param from_long - The longitude of the source
+     * @param to_lat    - The latitude of the destination
+     * @param to_long   - The longitude of the destination
+     * @return distance in km
+     */
+    public double get_distance(double from_lat, double from_long, double to_lat, double to_long) {
+
+        // Haversine formula
+        double R = 6371e3; // metres
+        double φ1 = from_lat * Math.PI / 180; // φ, λ in radians
+        double φ2 = to_lat * Math.PI / 180;
+        double Δφ = (to_lat - from_lat) * Math.PI / 180;
+        double Δλ = (to_long - from_long) * Math.PI / 180;
+
+        double a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2)
+                + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double d = R * c; // in metres
+
+        return d / 1000; // returning in km
+    }
+
 }
