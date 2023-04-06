@@ -47,6 +47,21 @@ public final class Common {
             Stage stage = (Stage) node.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource(page));
             Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void switchScene(Node node, String page, Object data) {
+        try {
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource(page));
+            Scene scene = new Scene(root);
+            stage.setUserData(data);
+
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

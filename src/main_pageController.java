@@ -2,11 +2,9 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -192,18 +190,6 @@ public class Main_PageController {
         persons.setValue(Persons.get(0));
     }
 
-    void depart_date() {
-        depart_date.setOnAction(e -> {
-            System.out.println(depart_date.getValue());
-        });
-    }
-
-    void return_date() {
-        return_date.setOnAction(e -> {
-            System.out.println(return_date.getValue());
-        });
-    }
-
     /**
      * This method is used to initialize the main page
      * and to handle the events of the main page
@@ -211,9 +197,6 @@ public class Main_PageController {
     @FXML
     private void initialize() {
         System.out.println("initialized");
-
-        depart_date();
-        return_date();
 
         comfort(); // init
         directions(); // init
@@ -376,8 +359,26 @@ public class Main_PageController {
             price = price * person_count_int;
 
             System.out.println("distance    " + distance + "        " + "price    " + price);
-        }
 
+            try {
+
+                HashMap<String, String> data = new HashMap<String, String>();
+                data.put("takeoff_place", takeoff_place);
+                data.put("takeoff_date", takeoff_date.toString());
+                data.put("landing_place", landing_place);
+                data.put("landing_date", landing_date);
+                data.put("person_count", person_count);
+                data.put("class_selected", class_selected);
+                data.put("price", String.valueOf(price));
+
+                common.switchScene(classes, "Ticket_List/ticket_list.fxml", data);
+
+            } catch (Exception e) {
+                System.out.println(e);
+
+            }
+
+        }
         return false;
     }
 }

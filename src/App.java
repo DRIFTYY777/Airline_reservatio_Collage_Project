@@ -33,11 +33,12 @@ public class App extends Application {
         Parent root = null;
         primaryStage.setTitle("Driftyy Airline's");
 
-        if (common.User != false) {
-            root = FXMLLoader.load(getClass().getResource("main_page.fxml"));
-        } else {
-            root = FXMLLoader.load(getClass().getResource("Login/login.fxml"));
-        }
+        // if (common.User != false) {
+        // root = FXMLLoader.load(getClass().getResource("main_page.fxml"));
+        // } else {
+        // root = FXMLLoader.load(getClass().getResource("Login/login.fxml"));
+        // }
+        root = FXMLLoader.load(getClass().getResource("main_page.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
