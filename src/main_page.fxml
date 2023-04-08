@@ -31,6 +31,6 @@
          </font>
       </Text>
       <ToggleButton fx:id="direct_flight" layoutX="231.0" layoutY="206.0" mnemonicParsing="false" text="Direct Flight" />
-      <Button fx:id="test" layoutX="71.0" layoutY="322.0" mnemonicParsing="false" text="test" />
+      <Button fx:id="setting" layoutX="274.0" layoutY="340.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="Setting" />
    </children>
 </AnchorPane>

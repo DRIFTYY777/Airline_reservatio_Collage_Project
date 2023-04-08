@@ -55,13 +55,19 @@ public final class Common {
         }
     }
 
+    /**
+     * This method is used to switch the scene (Change the window/page)
+     * 
+     * @param node - The node of the current window
+     * @param page - The page to be loaded
+     * @param data - The data to be passed to the next window
+     */
     public void switchScene(Node node, String page, Object data) {
         try {
             Stage stage = (Stage) node.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource(page));
             Scene scene = new Scene(root);
             stage.setUserData(data);
-
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
@@ -119,6 +125,18 @@ public final class Common {
         dialog.setHeaderText(message);
         dialog.getDialogPane().getButtonTypes().add(loginButtonType);
         dialog.showAndWait();
+    }
+
+    public void show_message(Node node, String title, String message, String button_msg, String button_msg2) {
+        ButtonType loginButtonType = new ButtonType(button_msg, ButtonData.OK_DONE);
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle(title);
+
+        dialog.setHeaderText(message);
+        dialog.getDialogPane().getButtonTypes().add(loginButtonType);
+        dialog.getDialogPane().getButtonTypes().add(new ButtonType(button_msg2, ButtonData.CANCEL_CLOSE));
+        dialog.showAndWait();
+
     }
 
     /**

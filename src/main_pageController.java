@@ -69,6 +69,9 @@ public class Main_PageController {
     private ChoiceBox classes;
 
     @FXML
+    private Button setting;
+
+    @FXML
     private DatePicker depart_date;
 
     @FXML
@@ -132,7 +135,9 @@ public class Main_PageController {
         where_from.setItems(new javafx.collections.ObservableListBase<String>() {
             @Override
             public String get(int index) {
+                where_from.setValue(data.get(0).toString());
                 return data.get(index).toString();
+
             }
 
             @Override
@@ -144,6 +149,7 @@ public class Main_PageController {
         where_to.setItems(new javafx.collections.ObservableListBase<String>() {
             @Override
             public String get(int index) {
+                where_to.setValue(data.get(1).toString());
                 return data.get(index).toString();
             }
 
@@ -202,13 +208,16 @@ public class Main_PageController {
         directions(); // init
         person_count(); // init
 
-        search_btn.setOnAction(e -> {
+        setting.setOnAction(e -> {
+            common.switchScene(classes, "Settings/settings_page.fxml");
 
         });
 
         ToggleGroup group = new ToggleGroup(); // init
         one_way.setToggleGroup(group); // init
         round_trip.setToggleGroup(group); // init
+
+        round_trip.setSelected(true);
 
         group.getToggles().forEach(toggle -> {
             toggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -226,14 +235,6 @@ public class Main_PageController {
             System.out.println(direct_flight.isSelected());
         });
 
-        test.setOnAction(e -> {
-            // Common common = new Common();
-            // common.User = false;
-            // common.switchScene(classes, "Login/login.fxml");
-            common.show_message(classes, "test", "test", "ok");
-
-        });
-
         search_btn.setOnAction(e -> {
             search_flight();
         });
@@ -249,15 +250,11 @@ public class Main_PageController {
         String person_count = Persons.get(persons.getSelectionModel().getSelectedIndex()); // how many person
         String class_selected = Classes.get(classes.getSelectionModel().getSelectedIndex()); // which class selected
 
-        String takeoff_place = "", takeoff_lat = null, takeoff_lon = null,
-                takeoff_name,
-                takeoff_city, takeoff_state, takeoff_country;
+        String takeoff_place = "", takeoff_lat = null, takeoff_lon = null, takeoff_country = "";
 
         LocalDate takeoff_date = null;
 
-        String landing_place = "", landing_lat = "", landing_date = "", landing_lon = null, landing_name, landing_city,
-                landing_state,
-                landing_country;
+        String landing_place = "", landing_lat = "", landing_date = "", landing_lon = null, landing_country = "";
 
         try {
             takeoff_place = where_from.getValue().toString(); // place from flight takeoff
@@ -269,14 +266,11 @@ public class Main_PageController {
                 common.show_message(classes, "Error", "Please select Landing place", "ok");
             }
         }
-
         try {
-
             takeoff_date = depart_date.getValue(); // date of flight takeoff
             if (one_way.isSelected()) {
                 landing_date = "0";
             } else {
-
                 landing_date = return_date.getValue().toString(); // date of flight landing
             }
         } catch (
@@ -301,25 +295,16 @@ public class Main_PageController {
 
             for (Object object : airpots_data) {
                 JSONObject user = (JSONObject) object;
-
                 if (user.get("name").toString().equals(takeoff_place)) {
                     takeoff_lat = (String) user.get("lat");
                     takeoff_lon = (String) user.get("lon");
-                    takeoff_name = (String) user.get("name");
-                    takeoff_city = (String) user.get("city");
-                    takeoff_state = (String) user.get("state");
                     takeoff_country = (String) user.get("country");
                 }
-
                 if (user.get("name").toString().equals(landing_place)) {
                     landing_lat = (String) user.get("lat");
                     landing_lon = (String) user.get("lon");
-                    landing_name = (String) user.get("name");
-                    landing_city = (String) user.get("city");
-                    landing_state = (String) user.get("state");
                     landing_country = (String) user.get("country");
                 }
-
             }
 
             double distance = common.get_distance(Double.parseDouble(takeoff_lat), Double.parseDouble(takeoff_lon),
@@ -354,14 +339,16 @@ public class Main_PageController {
                 discount = 0.02;
             }
 
-            price = price - (price * discount);
+            if (takeoff_country.equals(landing_country)) {
+                price = price - (price * discount) + 200;
+            } else {
+                price = price - (price * discount);
+            }
+
             int person_count_int = Integer.parseInt(person_count);
             price = price * person_count_int;
-
             System.out.println("distance    " + distance + "        " + "price    " + price);
-
             try {
-
                 HashMap<String, String> data = new HashMap<String, String>();
                 data.put("takeoff_place", takeoff_place);
                 data.put("takeoff_date", takeoff_date.toString());
@@ -370,14 +357,12 @@ public class Main_PageController {
                 data.put("person_count", person_count);
                 data.put("class_selected", class_selected);
                 data.put("price", String.valueOf(price));
-
-                common.switchScene(classes, "Ticket_List/ticket_list.fxml", data);
-
+                data.put("distance", String.valueOf(distance));
+                ticket_listController.data = data;
+                common.switchScene(classes, "Ticket_List/ticket_list.fxml");
             } catch (Exception e) {
                 System.out.println(e);
-
             }
-
         }
         return false;
     }

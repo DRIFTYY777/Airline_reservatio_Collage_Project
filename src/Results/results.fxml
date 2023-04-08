@@ -6,14 +6,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">  
-   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">  
+   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="297.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
       <children>
          <Text fx:id="airline_name" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IndiGo" wrappingWidth="156.13671875">
             <font>
                <Font name="System Bold" size="15.0" />
             </font></Text>
-         <Text fx:id="starting_time" fontSmoothingType="LCD" layoutX="14.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="02:00" wrappingWidth="128.015625">
+         <Text fx:id="starting_time" fontSmoothingType="LCD" layoutX="14.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="02:00" wrappingWidth="128.015625">
             <font>
                <Font size="14.0" />
             </font></Text>
@@ -22,30 +22,35 @@
                <Font size="16.0" />
             </font>
          </Text>
-         <Button layoutX="188.0" layoutY="189.0" mnemonicParsing="false" onAction="#see_flight" prefHeight="25.0" prefWidth="142.0" text="See flight" />
-         <Text fx:id="price" layoutX="189.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="142.0">
+         <Button fx:id="buy" layoutX="189.0" layoutY="248.0" mnemonicParsing="false" onAction="#see_flight" prefHeight="25.0" prefWidth="142.0" text="Buy" />
+         <Text fx:id="price" layoutX="189.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="142.0">
             <font>
                <Font name="System Bold" size="22.0" />
             </font>
          </Text>
-         <Text fx:id="landing_time" fontSmoothingType="LCD" layoutX="386.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4:50" wrappingWidth="128.015625">
+         <Text fx:id="landing_time" fontSmoothingType="LCD" layoutX="376.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4:50" wrappingWidth="128.015625">
             <font>
                <Font size="14.0" />
             </font></Text>
-         <Text layoutX="363.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total price for all travellers">
+         <Text layoutX="375.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total price for all travellers">
             <font>
                <Font name="Calibri" size="12.0" />
             </font></Text>
-         <Text layoutX="14.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Included: cabin bag, checked bag" />
-         <Text fx:id="takeoff_place" layoutX="14.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Takeoff place" wrappingWidth="128.015625">
+         <Text layoutX="14.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Included: cabin bag, checked bag" />
+         <Text fx:id="takeoff_place" layoutX="14.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Takeoff place" wrappingWidth="176.296875">
             <font>
-               <Font name="Consolas" size="16.0" />
+               <Font name="Consolas" size="12.0" />
             </font></Text>
-         <Text fx:id="landing_place" layoutX="386.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Landing_place" wrappingWidth="128.015625">
+         <Text fx:id="landing_place" layoutX="340.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Landing_place" wrappingWidth="176.296875">
             <font>
-               <Font name="Consolas" size="16.0" />
+               <Font name="Consolas" size="12.0" />
             </font></Text>
          <Line endX="100.0" layoutX="243.0" layoutY="46.0" startX="-100.0" />
+         <Text fx:id="killometers" layoutX="196.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="94.13671875" />
+         <Text fx:id="person_count" layoutX="14.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="130.962890625" />
+         <Text fx:id="traveling_class" layoutX="344.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="142.0" />
+         <Line endX="396.0" layoutX="123.0" layoutY="296.0" startX="-123.0" startY="1.0" />
+         <Line endX="351.00006103515625" endY="-145.0" layoutX="168.0" layoutY="145.0" startX="-168.0" startY="-145.00001525878906" />
       </children>
    </AnchorPane>
 </fx:root>
