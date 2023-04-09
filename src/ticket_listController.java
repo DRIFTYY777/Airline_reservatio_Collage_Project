@@ -17,6 +17,7 @@ public class ticket_listController {
 
     @FXML
     private ListView listview;
+
     public static Object data = null;
 
     @FXML

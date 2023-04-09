@@ -136,7 +136,6 @@ public final class Common {
         dialog.getDialogPane().getButtonTypes().add(loginButtonType);
         dialog.getDialogPane().getButtonTypes().add(new ButtonType(button_msg2, ButtonData.CANCEL_CLOSE));
         dialog.showAndWait();
-
     }
 
     /**
@@ -162,5 +161,4 @@ public final class Common {
 
         return d / 1000; // returning in km
     }
-
 }

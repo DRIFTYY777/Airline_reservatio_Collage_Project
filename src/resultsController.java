@@ -63,6 +63,11 @@ public class resultsController extends AnchorPane {
     @FXML
     private void initialize() {
         System.out.println("resultsController initialize");
+        buy.setOnAction(e -> {
+            System.out.println("Buy button clicked");
+            Common common = new Common();
+            common.show_message(airline_name, "Confirm", "Are you sure you want to buy this ticket?", "Yes");
+        });
     }
 
     /**
@@ -76,7 +81,7 @@ public class resultsController extends AnchorPane {
      * @param traveling_time
      * @param person_count
      * @param class_selected
-     *                       Set the data of the results
+     * @summary Set the data of the results
      */
 
     public void set_data(String takeoff_place, String landing_place, String airline_, String starting_time,
@@ -84,11 +89,11 @@ public class resultsController extends AnchorPane {
         try {
             this.airline_name.setText(airline_);
             this.price.setTextAlignment(TextAlignment.CENTER);
-            this.price.setText("$" + new DecimalFormat("##.##").format(price));
+            this.price.setText("₹" + new DecimalFormat("##.##").format(price));
             this.starting_time.setText(starting_time.toString());
             this.takeoff_place.setText(takeoff_place);
             this.traveling_time.setTextAlignment(TextAlignment.CENTER);
-            this.traveling_time.setText(traveling_time + " hours");
+            this.traveling_time.setText(traveling_time + "Km");
             this.landing_place.setTextAlignment(TextAlignment.RIGHT);
             this.landing_place.setText(landing_place);
             this.landing_time.setTextAlignment(TextAlignment.RIGHT);
