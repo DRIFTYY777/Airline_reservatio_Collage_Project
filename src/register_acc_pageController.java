@@ -73,12 +73,12 @@ public class register_acc_pageController {
         } else if (pass_string.length() == 0 || pass_string1.length() == 0) {
             System.out.println("Enter Password");
         } else if (pass_string.length() != pass_string1.length()) {
-            common.show_message(already_have_acc, "Error", "Password does not match", "okay");
+            common.show_message("Error", "Password does not match", "okay");
             System.out.println("Enter Correct Password");
         } else {
             System.out.println("Acccount Registered");
 
-            common.show_message(already_have_acc, "Successfully registered", "Your account successfully registered",
+            common.show_message("Successfully registered", "Your account successfully registered",
                     "okay");
             save_data_local(email_string, pass_string);
             common.switchScene(email, "Login/login.fxml");

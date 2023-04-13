@@ -32,7 +32,7 @@ public class Crypto {
             return Crypto.toHexString(Crypto.getSHA(plainText));
         } catch (NoSuchAlgorithmException e) {
             // TODO Auto-generated catch blocks
-            common.show_message(null, "Error", "Error in encrypting the data", "Okay");
+            common.show_message("Error", "Error in encrypting the data", "Okay");
             e.printStackTrace();
         }
         return null;

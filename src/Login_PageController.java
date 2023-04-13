@@ -74,7 +74,7 @@ public class Login_PageController {
             }
         }
         if (common.User == false) {
-            common.show_message(email, "Error", "Failed to LogIn", "Try again!");
+            common.show_message("Error", "Failed to LogIn", "Try again!");
             System.out.println("Login Failed");
         }
     }

@@ -4,11 +4,13 @@ import java.io.IOException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -118,24 +120,65 @@ public final class Common {
      * @param message - The message to be shown
      * @param button  - The button message
      */
-    public void show_message(Node node, String title, String message, String button_msg) {
+    public void show_message(String title, String message, String button_msg) {
         ButtonType loginButtonType = new ButtonType(button_msg, ButtonData.OK_DONE);
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setHeaderText(message);
         dialog.getDialogPane().getButtonTypes().add(loginButtonType);
+        boolean disabled = false; // computed based on content of text fields, for example
+        dialog.getDialogPane().lookupButton(loginButtonType).setDisable(disabled);
+
+        // print message using loginButtonType button
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                System.out.println("button_msg clicked");
+            }
+            return null;
+        });
         dialog.showAndWait();
     }
 
-    public void show_message(Node node, String title, String message, String button_msg, String button_msg2) {
-        ButtonType loginButtonType = new ButtonType(button_msg, ButtonData.OK_DONE);
+    /**
+     * Function is used for showing the message
+     * 
+     * @param node    - The node of the current window
+     * 
+     * @param title   - The title of the message
+     * @param message - The message to be shown
+     * @param button  - The button message
+     * @param button2 - The button message
+     * @summary This method is used to show the message with two buttons
+     */
+    public void show_message(String title, String message, String button_msg, String button2_msg) {
+        ButtonType button1 = new ButtonType(button_msg, ButtonData.OK_DONE);
+        ButtonType button2 = new ButtonType(button2_msg, ButtonData.OK_DONE);
+
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle(title);
-
         dialog.setHeaderText(message);
-        dialog.getDialogPane().getButtonTypes().add(loginButtonType);
-        dialog.getDialogPane().getButtonTypes().add(new ButtonType(button_msg2, ButtonData.CANCEL_CLOSE));
+        dialog.getDialogPane().getButtonTypes().add(button1);
+        dialog.getDialogPane().getButtonTypes().add(button2);
+        boolean disabled = false; // computed based on content of text fields, for example
+        dialog.getDialogPane().lookupButton(button1).setDisable(disabled);
+        dialog.getDialogPane().lookupButton(button2).setDisable(disabled);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == button1) {
+                System.out.println("button_msg clicked from common");
+            } else if (dialogButton == button2) {
+                System.out.println("button_msg clicked from common");
+                return null;
+            }
+            return null;
+        });
+
         dialog.showAndWait();
+    }
+
+    public void sign_out() {
+        User = false;
+        User_data = null;
     }
 
     /**
@@ -146,19 +189,16 @@ public final class Common {
      * @return distance in km
      */
     public double get_distance(double from_lat, double from_long, double to_lat, double to_long) {
-
         // Haversine formula
         double R = 6371e3; // metres
         double φ1 = from_lat * Math.PI / 180; // φ, λ in radians
         double φ2 = to_lat * Math.PI / 180;
         double Δφ = (to_lat - from_lat) * Math.PI / 180;
         double Δλ = (to_long - from_long) * Math.PI / 180;
-
         double a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2)
                 + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double d = R * c; // in metres
-
         return d / 1000; // returning in km
     }
 }

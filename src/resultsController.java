@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -57,6 +60,8 @@ public class resultsController extends AnchorPane {
     @FXML
     private Button buy;
 
+    Common common = new Common();
+
     /**
      * @summary Initialize the resultsController
      */
@@ -65,9 +70,35 @@ public class resultsController extends AnchorPane {
         System.out.println("resultsController initialize");
         buy.setOnAction(e -> {
             System.out.println("Buy button clicked");
-            Common common = new Common();
-            common.show_message(airline_name, "Confirm", "Are you sure you want to buy this ticket?", "Yes");
+            show_message("Confirm", "Are you sure you want to buy this ticket?", "Yes", "Cancel");
         });
+    }
+
+    public void show_message(String title, String message, String button_msg, String button2_msg) {
+        ButtonType button1 = new ButtonType(button_msg, ButtonData.OK_DONE);
+        ButtonType button2 = new ButtonType(button2_msg, ButtonData.OK_DONE);
+
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        dialog.setHeaderText(message);
+        dialog.getDialogPane().getButtonTypes().add(button1);
+        dialog.getDialogPane().getButtonTypes().add(button2);
+        boolean disabled = false; // computed based on content of text fields, for example
+        dialog.getDialogPane().lookupButton(button1).setDisable(disabled);
+        dialog.getDialogPane().lookupButton(button2).setDisable(disabled);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == button1) {
+                System.out.println("button_msg clicked from common");
+                common.show_message("Ticket", "Thanks for Purchasing", "ok");
+            } else if (dialogButton == button2) {
+                System.out.println("button_msg clicked from common");
+                return null;
+            }
+            return null;
+        });
+
+        dialog.showAndWait();
     }
 
     /**

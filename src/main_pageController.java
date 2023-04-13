@@ -261,9 +261,9 @@ public class Main_PageController {
             landing_place = where_to.getValue().toString(); // place of flight landing
         } catch (Exception e) {
             if (e.toString().contains(takeoff_place)) {
-                common.show_message(classes, "Error", "Please select Tekeoff place", "ok");
+                common.show_message("Error", "Please select Tekeoff place", "ok");
             } else {
-                common.show_message(classes, "Error", "Please select Landing place", "ok");
+                common.show_message("Error", "Please select Landing place", "ok");
             }
         }
         try {
@@ -276,7 +276,7 @@ public class Main_PageController {
         } catch (
 
         Exception e) {
-            common.show_message(classes, "Error", "Please select a date", "ok");
+            common.show_message("Error", "Please select a date", "ok");
         }
 
         if (one_way.isSelected()) {
